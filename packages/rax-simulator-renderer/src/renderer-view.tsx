@@ -149,6 +149,8 @@ class Renderer extends Component<{
   private key: string;
   private startTime: number | null = null;
 
+  schemaChangedSymbol = false;
+
   componentWillMount() {
     this.key = uniqueId('renderer');
   }
@@ -184,8 +186,6 @@ class Renderer extends Component<{
       });
     }
   }
-
-  schemaChangedSymbol = false;
 
   getSchemaChangedSymbol = () => {
     return this.schemaChangedSymbol;
