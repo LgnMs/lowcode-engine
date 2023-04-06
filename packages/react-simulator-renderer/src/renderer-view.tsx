@@ -88,7 +88,8 @@ function getDeviceView(view: any, device: string, mode: string) {
 
   // compatible vision Mobile | Preview
   device = ucfirst(device);
-  if (device === 'Mobile' && view.hasOwnProperty(device)) {
+
+  if (view.hasOwnProperty(device) && view[device]) {
     view = view[device];
   }
   mode = ucfirst(mode);
