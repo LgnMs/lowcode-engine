@@ -1,3 +1,5 @@
+import { wrapReactClass } from '@alilc/lowcode-utils';
+
 function ucfirst(s: string) {
   return s.charAt(0).toUpperCase() + s.substring(1);
 }
@@ -8,12 +10,13 @@ function getDeviceView(view: any, device: string, mode: string) {
 
   // compatible vision Mobile | Preview
   device = ucfirst(device);
+
   if (view.hasOwnProperty(device) && view[device]) {
-    view = view[device];
+    view = wrapReactClass(view[device]);
   }
   mode = ucfirst(mode);
   if (mode === 'Preview' && view.hasOwnProperty(mode)) {
-    view = view[mode];
+    view = wrapReactClass(view[mode]);
   }
   return view;
 }

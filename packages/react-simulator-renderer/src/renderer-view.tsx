@@ -4,7 +4,7 @@ import cn from 'classnames';
 import { Node } from '@alilc/lowcode-designer';
 import LowCodeRenderer from '@alilc/lowcode-react-renderer';
 import { observer } from 'mobx-react';
-import { getClosestNode, isFromVC, isReactComponent } from '@alilc/lowcode-utils';
+import { getClosestNode, isFromVC, isReactComponent, wrapReactClass } from '@alilc/lowcode-utils';
 import { GlobalEvent } from '@alilc/lowcode-types';
 import { SimulatorRendererContainer, DocumentInstance } from './renderer';
 import { host } from './host';
@@ -90,11 +90,11 @@ function getDeviceView(view: any, device: string, mode: string) {
   device = ucfirst(device);
 
   if (view.hasOwnProperty(device) && view[device]) {
-    view = view[device];
+    view = wrapReactClass(view[device]);
   }
   mode = ucfirst(mode);
   if (mode === 'Preview' && view.hasOwnProperty(mode)) {
-    view = view[mode];
+    view = wrapReactClass(view[mode]);
   }
   return view;
 }
