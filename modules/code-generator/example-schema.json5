@@ -62,17 +62,17 @@
         router: '/',
       },
       props: {
-        ref: 'outterView',
+        ref: 'outerView',
         autoLoading: true,
       },
       fileName: 'test',
       state: {
-        text: 'outter',
+        text: 'outer',
       },
       lifeCycles: {
         componentDidMount: {
           type: 'JSFunction',
-          value: "function() { console.log('componentDidMount'); }",
+          value: "function componentDidMount() { console.log('componentDidMount'); }",
         },
       },
       dataSource: {

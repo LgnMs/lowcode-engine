@@ -1,6 +1,6 @@
 import { MouseEvent } from 'react';
 import { IPublicTypePropType, IPublicTypeComponentAction } from './';
-import { IPublicModelNode, IPublicModelProp, IPublicModelSettingField } from '../model';
+import { IPublicModelNode, IPublicModelSettingField } from '../model';
 
 /**
  * 嵌套控制函数
@@ -102,7 +102,7 @@ export interface IPublicTypeFilterItem {
 }
 export interface IPublicTypeAutorunItem {
   name: string;
-  autorun: (prop: IPublicModelProp) => any;
+  autorun: (target: IPublicModelSettingField | null) => any;
 }
 
 // thinkof Array
@@ -133,11 +133,13 @@ export interface IPublicTypeLiveTextEditingConfig {
   onSaveContent?: (content: string, prop: any) => any;
 }
 
-export type ConfigureSupportEvent = string | {
+export type ConfigureSupportEvent = string | ConfigureSupportEventConfig;
+
+export interface ConfigureSupportEventConfig {
   name: string;
   propType?: IPublicTypePropType;
   description?: string;
-};
+}
 
 /**
  * 通用扩展面板支持性配置
