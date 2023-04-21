@@ -11,7 +11,7 @@
     "intl-messageformat": "^9.3.6",
     "@alifd/next": "1.19.18",
     "@ice/runtime": "^1.0.0",
-    "@alilc/lowcode-datasource-engine": "^1.0.0",
+    "@alilc/lowcode-datasource-engine": "^1.1.4",
     "@alilc/lowcode-datasource-jsonp-handler": "^1.0.0"
   },
   "devDependencies": {
