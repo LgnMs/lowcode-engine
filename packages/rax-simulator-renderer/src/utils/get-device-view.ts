@@ -1,4 +1,4 @@
-import { wrapReactClass } from '@alilc/lowcode-utils';
+import { isReactClass, wrapReactClass } from '@alilc/lowcode-utils';
 
 function ucfirst(s: string) {
   return s.charAt(0).toUpperCase() + s.substring(1);
@@ -12,11 +12,11 @@ function getDeviceView(view: any, device: string, mode: string) {
   device = ucfirst(device);
 
   if (view.hasOwnProperty(device) && view[device]) {
-    view = wrapReactClass(view[device]);
+    view = isReactClass(view[device]) ? view[device] : wrapReactClass(view[device]);
   }
   mode = ucfirst(mode);
   if (mode === 'Preview' && view.hasOwnProperty(mode)) {
-    view = wrapReactClass(view[mode]);
+    view = isReactClass(view[mode]) ? view[mode] : wrapReactClass(view[mode]);
   }
   return view;
 }

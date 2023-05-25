@@ -4,7 +4,7 @@ import { Component, createElement, Fragment } from 'rax';
 import { useRouter } from './rax-use-router';
 import { DocumentInstance, SimulatorRendererContainer } from './renderer';
 import './renderer.less';
-import { uniqueId, wrapReactClass } from '@alilc/lowcode-utils';
+import { isReactClass, uniqueId, wrapReactClass } from '@alilc/lowcode-utils';
 import { GlobalEvent } from '@alilc/lowcode-types';
 import { host } from './host';
 
@@ -100,11 +100,11 @@ function getDeviceView(view: any, device: string, mode: string) {
   device = ucfirst(device);
 
   if (view.hasOwnProperty(device) && view[device]) {
-    view = wrapReactClass(view[device]);
+    view = isReactClass(view[device]) ? view[device] : wrapReactClass(view[device]);
   }
   mode = ucfirst(mode);
   if (mode === 'Preview' && view.hasOwnProperty(mode)) {
-    view = wrapReactClass(view[mode]);
+    view = isReactClass(view[device]) ? view[device] : wrapReactClass(view[device]);
   }
   return view;
 }
