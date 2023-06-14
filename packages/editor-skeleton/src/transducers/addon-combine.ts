@@ -184,7 +184,7 @@ export default function (
   }
   if (supports.style) {
     stylesGroup.push({
-      name: 'style',
+      name: 'styleText',
       title: { type: 'i18n', 'zh-CN': '行内样式', 'en-US': 'Style' },
       setter: 'StyleSetter',
       extraProps: {
