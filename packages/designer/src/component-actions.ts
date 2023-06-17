@@ -8,7 +8,7 @@ import {
   IconClone,
   IconHidden,
 } from './icons';
-import { Node } from './document';
+import { INode, Node } from './document';
 import { componentDefaults, legacyIssues } from './transducers';
 
 export class ComponentActions {
@@ -49,10 +49,37 @@ export class ComponentActions {
         /* istanbul ignore next */
         action(node: Node) {
           // node.remove();
-          const { document: doc, parent, index } = node;
+          let { document: doc, parent, index } = node;
           if (parent) {
-            const newNode = doc.insertNode(parent, node, index + 1, true);
-            newNode.select();
+            const newNode = doc.insertNode(parent, node, index! + 1, true);
+
+            const generateNewStyleText = (oldNode: INode, newNode: INode) => {
+              const oldId = oldNode?.id;
+              const oldStyleText = oldNode?.getPropValue('styleText');
+              newNode?.setPropValue('styleText', oldStyleText?.replaceAll(oldId, newNode?.id));
+              if (newNode?.children?.isEmptyNode) return;
+
+              newNode?.children?.forEach((child, i) => {
+                generateNewStyleText(oldNode?.children?.get(i) as INode, child);
+              });
+            };
+
+            generateNewStyleText(node, newNode!);
+
+            // const oldId = node?.id;
+            // const oldStyleText = node?.getPropValue('styleText');
+            // newNode?.setPropValue('styleText', oldStyleText?.replace(oldId, newNode?.id));
+
+            // newNode?.children?.forEach((child, index) => {
+            //   const oldNode = node?.children?.get(index);
+            //   const oldId = oldNode?.id;
+            //   const oldStyleText = oldNode?.getPropValue('styleText');
+            //   child?.setPropValue('styleText', oldStyleText?.replace(oldId, child?.id));
+            // });
+
+            newNode!.select();
+
+            if (!node.getRGL) return;
             const { isRGL, rglNode } = node.getRGL();
             if (isRGL) {
               // 复制 layout 信息
