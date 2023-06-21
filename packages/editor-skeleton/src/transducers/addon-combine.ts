@@ -184,8 +184,13 @@ export default function (
   }
   if (supports.style) {
     stylesGroup.push({
+      name: 'styleStatus',
+      title: { type: 'i18n', 'zh-CN': '组件状态', 'en-US': 'Style status' },
+      setter: 'StringSetter',
+    });
+    stylesGroup.push({
       name: 'styleText',
-      title: { type: 'i18n', 'zh-CN': '行内样式', 'en-US': 'Style' },
+      title: { type: 'i18n', 'zh-CN': '样式', 'en-US': 'Style' },
       setter: 'StyleSetter',
       extraProps: {
         display: 'block',
