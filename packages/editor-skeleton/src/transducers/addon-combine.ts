@@ -185,7 +185,7 @@ export default function (
   if (supports.style) {
     stylesGroup.push({
       name: 'styleStatus',
-      title: { type: 'i18n', 'zh-CN': '组件状态 | styleStatus', 'en-US': 'Style status' },
+      title: { type: 'i18n', 'zh-CN': '组件状态 ', 'en-US': 'Style status' },
       setter: 'StringSetter',
     });
     stylesGroup.push({
