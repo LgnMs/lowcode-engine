@@ -1,8 +1,9 @@
 import { IPublicApiWorkspace, IPublicResourceList, IPublicTypeDisposable, IPublicTypeResourceType } from '@alilc/lowcode-types';
 import { IWorkspace } from '@alilc/lowcode-workspace';
-import { workspaceSymbol } from '../symbols';
+import { resourceSymbol, workspaceSymbol } from '../symbols';
 import { Resource as ShellResource, Window as ShellWindow } from '../model';
 import { Plugins } from './plugins';
+import { Skeleton } from './skeleton';
 
 export class Workspace implements IPublicApiWorkspace {
   readonly [workspaceSymbol]: IWorkspace;
@@ -64,16 +65,24 @@ export class Workspace implements IPublicApiWorkspace {
     this[workspaceSymbol].registerResourceType(resourceTypeModel);
   }
 
-  async openEditorWindow(resourceName: string, title: string, extra: object, viewName?: string, sleep?: boolean): Promise<void> {
-    await this[workspaceSymbol].openEditorWindow(resourceName, title, extra, viewName, sleep);
+  async openEditorWindow(): Promise<void> {
+    if (typeof arguments[0] === 'string') {
+      await this[workspaceSymbol].openEditorWindow(arguments[0], arguments[1], arguments[2], arguments[3], arguments[4]);
+    } else {
+      await this[workspaceSymbol].openEditorWindowByResource(arguments[0]?.[resourceSymbol], arguments[1]);
+    }
   }
 
   openEditorWindowById(id: string) {
     this[workspaceSymbol].openEditorWindowById(id);
   }
 
-  removeEditorWindow(resourceName: string, title: string) {
-    this[workspaceSymbol].removeEditorWindow(resourceName, title);
+  removeEditorWindow() {
+    if (typeof arguments[0] === 'string') {
+      this[workspaceSymbol].removeEditorWindow(arguments[0], arguments[1]);
+    } else {
+      this[workspaceSymbol].removeEditorWindowByResource(arguments[0]?.[resourceSymbol]);
+    }
   }
 
   removeEditorWindowById(id: string) {
@@ -82,6 +91,10 @@ export class Workspace implements IPublicApiWorkspace {
 
   get plugins() {
     return new Plugins(this[workspaceSymbol].plugins, true);
+  }
+
+  get skeleton() {
+    return new Skeleton(this[workspaceSymbol].skeleton, 'workspace', true);
   }
 
   get windows() {
